@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>{{ config('app.name') }}</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -47,6 +47,11 @@
 
             .title {
                 font-size: 84px;
+                padding-bottom: 20px;
+            }
+
+            .links {
+                padding-bottom: 20px;
             }
 
             .links > a {
@@ -59,8 +64,19 @@
                 text-transform: uppercase;
             }
 
+            .sources-title {
+                padding-bottom: 20px;
+                font-weight: 600;
+                color: #bbb
+            }
+
             .m-b-md {
                 margin-bottom: 30px;
+            }
+
+            hr {
+                border-top: 1px solid #ccc;
+                margin-bottom: 20px;
             }
         </style>
     </head>
@@ -79,15 +95,23 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Light Switch
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="{{ url('/static/client.html') }}">HTML-only</a>
+                    <a href="{{ url('/static/js-client.html') }}">JavaScript</a>
+                    <a href="{{ url('/static/api-doc.html') }}">API Documentation</a>
+                </div>
+                <hr>
+                <div class="sources-title">
+                    SOURCES:
+                </div>
+                <div class="links">
+                    <a href="https://github.com/ChandlerSwift/lightswitch-html">HTML/JS Clients</a>
+                    <a href="https://github.com/ChandlerSwift/lightswitch-java">Java Client</a>
+                    <a href="https://github.com/ChandlerSwift/lightswitch">Switch Firmware</a>
+                    <a href="https://github.com/ChandlerSwift/lightproxy">This Web App</a>
                 </div>
             </div>
         </div>
