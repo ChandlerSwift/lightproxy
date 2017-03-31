@@ -25,3 +25,6 @@ Route::get('/ping', function() {
     else
         return Auth::onceBasic() ?: "Logged in: Basic";
 });
+
+
+Route::get('/{any}', 'Proxy')->where('any', '.*');
