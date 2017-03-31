@@ -18,3 +18,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('/ping', function() {
+    if (Auth::check())
+        return "Logged In: Session";
+    else
+        return Auth::onceBasic() ?: "Logged in: Basic";
+});
