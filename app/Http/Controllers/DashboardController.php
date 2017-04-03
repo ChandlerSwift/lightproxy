@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Log;
 
 class DashboardController extends Controller
 {
@@ -23,6 +25,6 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        return view('dashboard', ['logs' => Log::where('user_id', Auth::user()->id)->paginate(50)]);
     }
 }
