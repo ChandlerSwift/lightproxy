@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Log;
 use GuzzleHttp;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -30,6 +31,11 @@ class Proxy extends Controller
             return $e;
             //abort($res->getStatusCode(), $res->getBody());
         }
+
+        $log = new Log;
+        $log->url = $url;
+        $log->user_id = Auth::user()->id;
+        $log->save();
         
         if ($res->getStatusCode() == 200) {
             return $res->getBody();
