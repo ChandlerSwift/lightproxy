@@ -78,6 +78,15 @@
             </div>
         </nav>
 
+        @if(isset($alert_message))
+        <div class="container">
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>{{ $alert_message["title"] }}</strong> {{ $alert_message["message"] }}
+            </div>
+        </div>
+        @endif
+
         @yield('content')
     </div>
 
