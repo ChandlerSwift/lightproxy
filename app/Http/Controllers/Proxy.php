@@ -25,7 +25,9 @@ class Proxy extends Controller
         if (!Auth::user()->has_light_permission)
             return response()->view('unauthorized', [], 403);
 
-        $url = "http://192.168.1.10/" . $path . "?" . $request->getQueryString();
+        $query_string = "/" . $path . ($request->getQueryString() ? "?" : "") . $request->getQueryString();
+
+        $url = "http://192.168.1.10" . $query_string;
         
         $client = new GuzzleHttp\Client();
         try {
@@ -36,10 +38,10 @@ class Proxy extends Controller
         }
 
         $log = new Log;
-        $log->url = $url;
+        $log->url = $query_string;
         $log->user_id = Auth::user()->id;
         $log->save();
-        
+
         if ($res->getStatusCode() == 200) {
             return $res->getBody();
         }
