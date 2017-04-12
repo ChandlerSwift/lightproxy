@@ -26,7 +26,7 @@ class DashboardController extends Controller
     public function index()
     {
         $data = [
-            'logs' => Log::where('user_id', Auth::user()->id)->paginate(50),
+            'logs' => Log::where('user_id', Auth::user()->id)->latest()->paginate(50),
         ];
 
         if (!Auth::user()->has_light_permission)
