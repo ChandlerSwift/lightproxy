@@ -15,7 +15,7 @@
                             </tr>
                             @foreach($logs as $log)
                             <tr>
-                                <td>{{ $log->created_at }}</td>
+                                <td>{{ $log->created_at->toDayDateTimeString() }}</td>
                                 <td>{{ $log->url }}</td>
                             </tr>
                             @endforeach
