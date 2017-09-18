@@ -26,5 +26,12 @@ Route::get('/ping', function() {
         return Auth::onceBasic() ?: "Logged in: Basic";
 });
 
+Route::group(['middleware' => 'CheckAdmin'], function() {
+    Route::get('/admin/logs', 'LogController@index');
+
+    Route::get('/admin/users', 'UserController@index');
+    Route::get('/admin/users/{user}/authorize', 'UserController@grantAuthorization');
+    Route::get('/admin/users/{user}/deauthorize', 'UserController@revokeAuthorization');
+});
 
 Route::get('/{any}', 'Proxy')->where('any', '.*');

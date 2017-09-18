@@ -27,6 +27,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    function isAdmin() {
+        return $this->email === env('ADMIN_EMAIL');
+    }
+
     public function logs() {
         return $this->hasMany('App\Log');
     }
