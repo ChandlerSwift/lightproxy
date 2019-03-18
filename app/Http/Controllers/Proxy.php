@@ -25,10 +25,22 @@ class Proxy extends Controller
         if (!Auth::user()->has_light_permission)
             return response()->view('unauthorized', [], 403);
 
-        $query_string = "/" . $path . ($request->getQueryString() ? "?" : "") . $request->getQueryString();
+        switch (preg_split("#/#", $path)[0]) {
+            case "switch":
+                $after_host = substr($path, strpos($path, '/') + 1);
+                $url = "http://192.168.1.11/" . $after_host;
+                break;
+            case "light":
+                $url = "http://192.168.1.10/" . $path;
+                if ($request->getQueryString() != "")
+                    $url += "?" . $request->getQueryString();
+                break;
+            default:
+                return("error in switch statement");
+	}
 
-        $url = "http://192.168.1.10" . $query_string;
-        
+	$full_query_string_for_logs = $path . "?" . $request->getQueryString();
+
         $client = new GuzzleHttp\Client();
         try {
             $res = $client->get($url); //, ['auth' =>  ['user', 'pass']]);
@@ -38,7 +50,7 @@ class Proxy extends Controller
         }
 
         $log = new Log;
-        $log->url = $query_string;
+        $log->url = $full_query_string_for_logs;
         $log->user_id = Auth::user()->id;
         $log->save();
 
